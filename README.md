@@ -1,21 +1,25 @@
-# Aplikasi Kalkulator API (DevSecOps P5)
+# Kumpulan Aplikasi Python Bawaan (DevSecOps P5)
 
 **1. Nama Aplikasi & Fungsinya**
-Aplikasi ini bernama "Kalkulator API". Fungsinya adalah menyediakan endpoint REST API sederhana untuk melakukan operasi matematika dasar (penjumlahan dan pengurangan).
+Proyek ini berisi kumpulan script aplikasi Python yang dapat berjalan secara masing-masing tanpa library tambahan:
+- `web_server.py`: Menjalankan HTTP web server lokal.
+- `system_info.py`: Menampilkan informasi sistem operasi.
+- `file_manager.py`: Mengotomatisasi pembuatan dan pembacaan file log.
+- `math_operations.py`: Menghitung operasi matematika kompleks (faktorial).
 
 **2. Bahasa/Framework yang Digunakan**
-- **Bahasa:** Python 3
-- **Framework:** Flask
-- **Testing:** Pytest
-- **SAST Tool:** Bandit
+- **Bahasa:** Python 3 (Pure Python Standard Library, tanpa eksternal library).
+- **Testing:** `unittest` (Bawaan Python).
+- **SAST Tool:** Bandit.
 
 **3. Cara Menjalankan Aplikasi**
-Pastikan Python sudah terinstal, lalu jalankan perintah berikut di terminal:
-`pip install -r requirements.txt`
-`python app.py`
-Aplikasi akan berjalan di `http://127.0.0.1:5000`.
+Karena menggunakan library bawaan Python, tidak perlu instalasi dependencies. Anda dapat langsung menjalankan masing-masing aplikasi di terminal:
+- `python web_server.py`
+- `python system_info.py`
+- `python file_manager.py`
+- `python math_operations.py`
 
 **4. Overview Pipeline CI/CD**
-Pipeline diimplementasikan menggunakan GitHub Actions (`devsecops.yml`). Terdapat dua job utama yang berjalan pada runner `ubuntu-latest`:
-- **Job Build**: Melakukan instalasi dependensi Python dan menjalankan *unit test* menggunakan Pytest untuk memastikan kode bebas error secara fungsional.
-- **Job SAST-Scan**: Berjalan setelah job *build* berhasil (menggunakan *needs*). Job ini menjalankan tool **Bandit** untuk memindai kerentanan keamanan pada source code Python.
+Pipeline CI/CD dibuat menggunakan GitHub Actions (`devsecops.yml`).
+- **Job Build**: Menjalankan *unit test* menggunakan module `unittest` bawaan Python (`python -m unittest test_apps.py`) untuk memvalidasi fungsi logika.
+- **Job SAST-Scan**: Berjalan setelah job build berhasil. Job ini menginstal tool keamanan **Bandit** melalui pip dan memindai semua source code Python untuk mendeteksi kerentanan keamanan statis.
